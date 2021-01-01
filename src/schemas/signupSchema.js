@@ -10,6 +10,5 @@ module.exports = [
       throw new Error('%s should be equal with password.')
     }
   }),
-  field('first_name').required(),
-  field('last_name').required()
+  field('role').required().isRoleOptions('name')
 ]

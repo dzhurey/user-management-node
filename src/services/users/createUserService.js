@@ -5,7 +5,7 @@ const { User } = require('../../models')
 const { saltRounds } = config.authentication
 
 const generateMeta = (form, password) => ({
-  username: form.email,
+  email: form.email,
   password,
   isActive: false,
   isConfirmed: false
