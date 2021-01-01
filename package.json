@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "watch": "nodemon node ./bin/www",
+    "start:dev": "node ./bin/www",
     "start": "npm run build && node dist/bin/www",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "lint": "npx eslint"
