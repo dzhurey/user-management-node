@@ -1,8 +1,8 @@
 const passport = require('passport')
 const moment = require('moment')
 const LocalStrategy = require('passport-local').Strategy
-const JwtStrategy = require('passport-jwt').Strategy
-const ExtractJwt = require('passport-jwt').ExtractJwt
+const JWTStrategy = require('passport-jwt').Strategy
+const ExtractJWT = require('passport-jwt').ExtractJwt
 const config = require('../../config')
 const { User, Role } = require('../models')
 const { UnauthorizedError } = require('../utils/exception')
@@ -13,9 +13,10 @@ passport.use(new LocalStrategy({
 },
     function (email, password, cb) {
         //this one is typically a DB call. Assume that the returned user object is pre-formatted and ready for storing in JWT
-        return User.findOne({ 
-            where: { email }, 
-            include: Role})
+        return User.findOne({
+            where: { email },
+            include: Role
+        })
             .then(user => {
                 if (!user) {
                     return cb(null, false, { message: 'Incorrect email or password.' })
@@ -36,21 +37,18 @@ passport.use(new LocalStrategy({
     }
 ))
 
-// const opts = {}
-// opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
-// opts.secretOrKey = config.apps.secret
-// opts.issuer = config.apps.baseURL
-
-// passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-//     User.findOne({id: jwt_payload.sub}, function(err, user) {
-//         if (err) {
-//             return done(err, false)
-//         }
-//         if (user) {
-//             return done(null, user)
-//         } else {
-//             return done(null, false)
-//             // or you could create a new account
-//         }
-//     })
-// }))
+passport.use(new JWTStrategy({
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    secretOrKey: config.apps.secret
+},
+    function (payload, cb) {
+        //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
+        return User.findOne({ where: { id: payload.userId } })
+            .then(user => {
+                return cb(null, payload);
+            })
+            .catch(err => {
+                return cb(err);
+            });
+    }
+));

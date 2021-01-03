@@ -1,10 +1,12 @@
 const express = require('express')
+const passport = require('passport')
 const validation = require('../utils/validation')
 const response = require('../utils/response')
 const models = require('../models')
 const signupSchema = require('../schemas/signupSchema')
 const signupService = require('../services/users/signupService')
-const activateUser = require('../services/users/activateUser')
+const activateUserService = require('../services/users/activateUserService')
+const getUserByIdService = require('../services/users/getUserByIdService')
 const UserSerializer = require('../serializers/userSerializer')
 
 const router = express.Router()
@@ -23,17 +25,22 @@ router.post('/signup', validation(signupSchema), async function (req, res, next)
 router.get('/activate/:activationCode', async function (req, res, next) {
   try {
     const { activationCode } = req.params
-    await activateUser(activationCode)
-    response.JSONResponse(res, null, null, 200)
+    await activateUserService(activationCode)
+    response.JSONResponse(res, null, null, 204)
   } catch (error) {
     next(error)
   }
 })
 
-/* GET users listing. */
-router.get('/', async function (req, res, next) {
-  const users = await models.User.findAll()
-  res.send(users)
+/* GET user by id. */
+router.get('/:id', passport.authenticate('jwt', {session: false}), async function (req, res, next) {
+  try {
+    const { id } = req.params
+    const data = await getUserByIdService(id)
+    response.JSONResponse(res, UserSerializer, data, 200)
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = router
