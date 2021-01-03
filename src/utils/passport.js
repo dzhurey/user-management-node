@@ -42,9 +42,15 @@ passport.use(new JWTStrategy({
     secretOrKey: config.apps.secret
 },
     function (payload, cb) {
+        const now = moment()
+        const expiresIn = moment(payload.expiresIn)
+        
+        if (!now.isSameOrBefore(expiresIn)) {
+            return cb(new UnauthorizedError('Token expired!'));
+        }
         //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
         return User.findOne({ where: { id: payload.userId } })
-            .then(user => {
+            .then(() => {
                 return cb(null, payload);
             })
             .catch(err => {
