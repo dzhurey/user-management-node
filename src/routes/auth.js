@@ -1,17 +1,26 @@
 const express = require('express')
-const validation = require('datalize')
-const signupSchema = require('../schemas/signupSchema')
-const signupService = require('../services/users/signupService')
 const router = express.Router()
+const jwt = require('jsonwebtoken')
+const passport = require('passport')
+const config = require('../../config')
+const { UnauthorizedError } = require('../utils/exception')
 
-// /* POST user signup */
-// router.post('/signup', validation(signupSchema), async function (req, res, next) {
-//   try {
-//     const data = await signupService(req.form)
-//     res.send(data)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+router.post('/login', function (req, res, next) {
+  passport.authenticate('local', { session: false }, (err, user, info) => {
+    if (err) {
+      return next(err)
+    }
+    if (!user) {
+      return next(new UnauthorizedError('Incorrect email or password.'))
+    }
+    req.login(user, { session: false }, (err) => {
+      if (err) {
+        return next(err)
+      }
+      const token = jwt.sign(user, config.apps.secret)
+      return res.json({ token })
+    })
+  })(req, res)
+})
 
 module.exports = router

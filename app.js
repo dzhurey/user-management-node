@@ -15,6 +15,7 @@ const usersRouter = require('./src/routes/users')
 const authRouter = require('./src/routes/auth')
 
 const db = require('./src/models')
+require('./src/utils/passport')
 
 const app = express()
 
