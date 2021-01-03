@@ -21,9 +21,13 @@ router.post('/signup', validation(signupSchema), async function (req, res, next)
 
 /* GET activate user */
 router.get('/activate/:activationCode', async function (req, res, next) {
-  const { activationCode } = req.params
-  await activateUser(activationCode)
-  response.JSONResponse(res, null, null, 200)
+  try {
+    const { activationCode } = req.params
+    await activateUser(activationCode)
+    response.JSONResponse(res, null, null, 200)
+  } catch (error) {
+    next(error)
+  }
 })
 
 /* GET users listing. */
