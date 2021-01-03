@@ -1,8 +1,11 @@
 const express = require('express')
 const validation = require('../utils/validation')
+const response = require('../utils/response')
 const models = require('../models')
 const signupSchema = require('../schemas/signupSchema')
 const signupService = require('../services/users/signupService')
+const activateUser = require('../services/users/activateUser')
+const UserSerializer = require('../serializers/userSerializer')
 
 const router = express.Router()
 
@@ -10,10 +13,17 @@ const router = express.Router()
 router.post('/signup', validation(signupSchema), async function (req, res, next) {
   try {
     const data = await signupService(req.form)
-    res.send(data)
+    response.JSONResponse(res, UserSerializer, data, 201)
   } catch (error) {
     next(error)
   }
+})
+
+/* GET activate user */
+router.get('/activate/:activationCode', async function (req, res, next) {
+  const { activationCode } = req.params
+  await activateUser(activationCode)
+  response.JSONResponse(res, null, null, 200)
 })
 
 /* GET users listing. */
