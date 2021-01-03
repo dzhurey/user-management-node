@@ -28,9 +28,7 @@
 
 ### 1. Clone this repository and enter to directory
 
-### 2. Setup server:
-
-#### A. Backend
+### 2. Setup dev server:
 
 1. Enter `server` directory
 
