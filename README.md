@@ -30,17 +30,15 @@
 
 ### 2. Setup dev server:
 
-1. Enter `server` directory
+1. Copy file `env.example` and rename it to `.env` then adjust its value
 
-2. Copy file `env.example` and rename it to `.env` then adjust its value
-
-3. Install dependency
+2. Install dependency
 
 ```
 npm install
 ```
 
-4. Run Dev Server
+3. Run Dev Server
 
 ```
 npm run start:dev
