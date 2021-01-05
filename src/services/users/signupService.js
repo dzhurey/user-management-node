@@ -1,7 +1,6 @@
 const { sequelize } = require('../../models')
 const createUserService = require('./createUserService')
 const createUserRoleService = require('../userRoles/createUserRoleService');
-const user = require('../../models/user');
 
 module.exports = async (form) => {
   const transaction = await sequelize.transaction();
