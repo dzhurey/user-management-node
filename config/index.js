@@ -4,9 +4,9 @@ dotenv.config()
 
 module.exports = {
   apps: {
-    baseURL: 'localhost:5010',
+    baseURL: process.env.BASE_URL,
     isMultiTenant: process.env.IS_MULTI_TENANT,
-    secret: 'ajkshdjouo3y8doay8aho3y8jawdio'
+    secret: process.env.APP_SECRET
   },
   authentication: {
     saltRounds: 10
