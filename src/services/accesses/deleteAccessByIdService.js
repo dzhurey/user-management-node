@@ -1,5 +1,7 @@
 const { Access } = require('../../models')
+const getAccessByIdService = require('./getAccessByIdService')
 
 module.exports = async (id, options = {}) => {
-  return Access.destroy({ where: { id } }, options)
+  const data = await getAccessByIdService(id)
+  return data.destroy({ where: { id } }, options)
 }
