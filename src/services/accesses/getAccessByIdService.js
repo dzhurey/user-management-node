@@ -6,4 +6,5 @@ module.exports = async (id) => {
   if (data === null) {
     throw new exception.NotFoundError("Access not found!")
   }
+  return data
 }

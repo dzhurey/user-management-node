@@ -1,4 +1,3 @@
-const { Access } = require('../../models')
 const getAccessByIdService = require('./getAccessByIdService')
 
 module.exports = async (id, options = {}) => {

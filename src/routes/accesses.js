@@ -50,8 +50,7 @@ router.get(
   validation.query(getAllSchema),
   async function (req, res, next) {
     try {
-      console.log(req.query)
-      const data = await getAllAccessesService(req.query)
+      const data = await getAllAccessesService(req.data)
       response.JSONResponse(res, AccessSerializer, data, 200)
     } catch (error) {
       next(error)
@@ -82,7 +81,7 @@ router.delete(
     try {
       const { id } = req.params
       await deleteAccessByIdService(id)
-      response.JSONResponse(res, null, null, 200)
+      response.JSONResponse(res, null, null, 204)
     } catch (error) {
       next(error)
     }
