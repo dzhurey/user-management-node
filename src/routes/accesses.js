@@ -51,7 +51,7 @@ router.get(
   async function (req, res, next) {
     try {
       const data = await getAllAccessesService(req.data)
-      response.JSONResponse(res, AccessSerializer, data, 200)
+      response.JSONResponse(res, AccessSerializer, data.data, 200, data.pagination)
     } catch (error) {
       next(error)
     }

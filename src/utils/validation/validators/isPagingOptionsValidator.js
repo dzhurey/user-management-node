@@ -15,8 +15,8 @@ module.exports = function () {
       throw new Error('Page size should be number')
     }
     return {
-      page: parseInt(value.number),
-      limit: parseInt(value.size)
+      number: parseInt(value.number),
+      size: parseInt(value.size)
     }
   })
 }
