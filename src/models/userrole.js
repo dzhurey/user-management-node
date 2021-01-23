@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   UserRole.init({
-    userId: {
+    UserId: {
       type: DataTypes.BIGINT,
       allowNull: false
     },
-    roleId: {
+    RoleId: {
       type: DataTypes.BIGINT,
       allowNull: false
     }

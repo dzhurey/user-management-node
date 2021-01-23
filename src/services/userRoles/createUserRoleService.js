@@ -1,8 +1,8 @@
 const { UserRole } = require('../../models')
 
 const generateMeta = (param) => ({
-  userId: param.userId,
-  roleId: param.roleId
+  UserId: param.userId,
+  RoleId: param.roleId
 })
 
 module.exports = async (param, options = {}) => {
