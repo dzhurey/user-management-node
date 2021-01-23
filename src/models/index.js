@@ -8,6 +8,7 @@ const basename = path.basename(__filename)
 
 const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
   host: dbConfig.host,
+  port: dbConfig.port,
   dialect: dbConfig.dialect
 })
 
