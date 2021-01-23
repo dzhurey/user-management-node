@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+const sequelizePaginate = require('sequelize-paginate')
+
 module.exports = (sequelize, DataTypes) => {
   class Access extends Model {
     /**
@@ -27,5 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Access',
     underscored: true,
   });
+  sequelizePaginate.paginate(Access)
   return Access;
 };

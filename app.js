@@ -13,6 +13,7 @@ const { handler: errorHandler } = require('./src/middlewares/errorHandler')
 const indexRouter = require('./src/routes/index')
 const usersRouter = require('./src/routes/users')
 const authRouter = require('./src/routes/auth')
+const accessesRouter = require('./src/routes/accesses')
 
 const db = require('./src/models')
 require('./src/utils/passport')
@@ -35,6 +36,7 @@ app.use('/', indexRouter)
 app.use('/api/v1/users', usersRouter)
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/permission', permissionRouter)
+app.use('/api/v1/accesses', accessesRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
