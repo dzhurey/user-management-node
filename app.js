@@ -20,7 +20,7 @@ require('./src/utils/passport')
 
 const app = express()
 
-db.sequelize.sync()
+// db.sequelize.sync()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'src', 'views'))
