@@ -14,6 +14,7 @@ const indexRouter = require('./src/routes/index')
 const usersRouter = require('./src/routes/users')
 const authRouter = require('./src/routes/auth')
 const accessesRouter = require('./src/routes/accesses')
+const permissionsRouter = require('./src/routes/permissions')
 
 const db = require('./src/models')
 require('./src/utils/passport')
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', indexRouter)
 app.use('/api/v1/users', usersRouter)
 app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/permissions', permissionsRouter)
 app.use('/api/v1/accesses', accessesRouter)
 
 // catch 404 and forward to error handler
