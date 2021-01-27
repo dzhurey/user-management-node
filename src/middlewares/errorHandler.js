@@ -27,11 +27,13 @@ const handler = (err, req, res, next) => {
     res.status(409).send(responseJSON(err, 'Already Exist'))
     next(err)
   } else if (err instanceof ExternalError) {
+    console.error(err)
     res.status(503).send(responseJSON(err, 'External Service Unavailable'))
     next(err)
   } else if (err instanceof datalize.Error) {
     res.status(400).send(responseJSON(err, 'Validation Error'))
   } else {
+    console.error(err)
     res.status(500).send(responseJSON(err, 'Internal Server Error'))
     next(err)
   }
