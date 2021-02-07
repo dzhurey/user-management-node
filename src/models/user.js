@@ -16,7 +16,10 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
+      this.hasMany(models.UserTenant)
       this.belongsToMany(models.Role, { through: models.UserRole })
+      this.belongsToMany(models.Group, { through: models.UserTenant })
+      this.belongsToMany(models.Tenant, { through: models.UserTenant })
     }
   };
   User.init({
