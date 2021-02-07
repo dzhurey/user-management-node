@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    tenantId: {
+      type: DataTypes.BIGINT,
+      allowNull: false
+    },
     description: {
       type: DataTypes.TEXT,
       defaultValue: ''
