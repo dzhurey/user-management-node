@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT,
       allowNull: false
     },
-    userGroupId: {
+    groupId: {
       type: DataTypes.BIGINT,
       allowNull: false
     },
