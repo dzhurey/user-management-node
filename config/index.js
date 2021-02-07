@@ -9,6 +9,6 @@ module.exports = {
     secret: process.env.APP_SECRET
   },
   authentication: {
-    saltRounds: 10
+    saltRounds: process.env.AUTH_SALT_ROUND
   }
 }

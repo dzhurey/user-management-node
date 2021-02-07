@@ -5,46 +5,36 @@ const {
 const sequelizePaginate = require('sequelize-paginate')
 
 module.exports = (sequelize, DataTypes) => {
-  class UserTenant extends Model {
+  class GroupPermissionAccess extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.User)
-      this.belongsTo(models.Tenant)
       this.belongsTo(models.Group)
+      this.belongsTo(models.Permission)
+      this.belongsTo(models.Access)
     }
   };
-  UserTenant.init({
-    userId: {
-      type: DataTypes.BIGINT,
-      allowNull: false
-    },
-    tenantId: {
-      type: DataTypes.BIGINT,
-      allowNull: false
-    },
+  GroupPermissionAccess.init({
     groupId: {
       type: DataTypes.BIGINT,
       allowNull: false
     },
-    isActive: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
+    permissionId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-    isCurrent: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
+    accessId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,
-    modelName: 'UserTenant',
+    modelName: 'GroupPermissionAccess',
     underscored: true,
   });
-  sequelizePaginate.paginate(UserTenant)
-  return UserTenant;
+  sequelizePaginate.paginate(GroupPermissionAccess)
+  return GroupPermissionAccess;
 };

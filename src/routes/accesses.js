@@ -4,6 +4,7 @@ const validation = require('../utils/validation')
 const response = require('../utils/response')
 const createAccessSchema = require('../schemas/access/createAccessSchema')
 const getAllSchema = require('../schemas/getAllSchema')
+const authorize = require('../middlewares/authorize')
 const createOrUpdateAccessService = require('../services/accesses/createOrUpdateAccessService')
 const getAllAccessesService = require('../services/accesses/getAllAccessesService')
 const getAccessByIdService = require('../services/accesses/getAccessByIdService')
@@ -16,6 +17,7 @@ const router = express.Router()
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
+  authorize(['internal'], 'user-management', 'administrator'),
   validation(createAccessSchema),
   async function (req, res, next) {
     try {
@@ -31,6 +33,7 @@ router.post(
 router.put(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  authorize(['internal'], 'user-management', 'administrator'),
   validation(createAccessSchema),
   async function (req, res, next) {
     try {
@@ -77,6 +80,7 @@ router.get(
 router.delete(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  authorize(['internal'], 'user-management', 'administrator'),
   async function (req, res, next) {
     try {
       const { id } = req.params
