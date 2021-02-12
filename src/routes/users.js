@@ -5,7 +5,7 @@ const response = require('../utils/response')
 const signupSchema = require('../schemas/signupSchema')
 const signupService = require('../services/users/signupService')
 const activateUserService = require('../services/users/activateUserService')
-const getUserByIdService = require('../services/users/getUserByIdService')
+const getUserService = require('../services/users/getUserService')
 const UserSerializer = require('../serializers/userSerializer')
 
 const router = express.Router()
@@ -35,7 +35,7 @@ router.get('/activate/:activationCode', async function (req, res, next) {
 router.get('/:id', passport.authenticate('jwt', {session: false}), async function (req, res, next) {
   try {
     const { id } = req.params
-    const data = await getUserByIdService(id)
+    const data = await getUserService(id)
     response.JSONResponse(res, UserSerializer, data, 200)
   } catch (error) {
     next(error)
