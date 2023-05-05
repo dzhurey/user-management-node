@@ -1,0 +1,15 @@
+service: aliyun-nodejs
+
+provider:
+  name: aliyun
+  runtime: nodejs8
+  credentials: ~/.aliyuncli/credentials # path must be absolute
+
+plugins:
+  - serverless-aliyun-function-compute
+
+package:
+  exclude:
+    - package-lock.json
+    - .gitignore
+    - .git/**
